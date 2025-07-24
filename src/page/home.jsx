@@ -1,9 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router";
+import { NavbarComponent } from "../components/navbar/navbar";
 
 const Home = () => {
   return (
+    <>
+   
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300">
+      
       <div className="text-center space-y-6">
         <h1 className="text-4xl font-bold text-slate-800 drop-shadow-lg">
           Welcome to
@@ -16,6 +20,8 @@ const Home = () => {
         </button>
       </div>
     </div>
+    </>
+    
   );
 };
 

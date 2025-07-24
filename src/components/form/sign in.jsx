@@ -1,39 +1,37 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
 import sinin from "../../assets/signin.png"; // Your image
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { supabase } from '../../config/url';
 
 const Signin = () => {
+  const navigate = useNavigate()
   const [form] = Form.useForm(); // 
 
-  const onFinish = async(values) => {
+
+const onFinish = async (values) => {
   try {
-   const { data, error } = await supabase.auth.signInWithPassword({
-    email:values.email ,
-    password:values.password ,
-  })
-  if(data){
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: values.email,
+      password: values.password,
+    });
 
-      const userId = data.user.id;
-  console.log("User ID:", userId);
-  form.resetFields();
+    if (error) {
+      if (error.message === "Email not confirmed") {
+        alert("Please check your inbox and confirm your email before logging in.");
+      } else {
+        alert("Login failed: " + error.message);
+      }
+      return;
+    }
 
-if(userId){
-  navigate("/home",)
-}
-else{
-  navigate("/")
-}
+    console.log("Logged in user:", data);
+    navigate("/home")
+  } catch (error) {
+    alert("Unexpected error: " + error.message);
   }
-  if(error){
-     alert("Error:", error.message);
-  }
-} catch (error) {
-// Agar error aaye to yeh block chalega
-  alert("Error:", error.message);
-}
-  };
+};
+
   
 //    console.log(values.email)
 //    console.log(values.password)
